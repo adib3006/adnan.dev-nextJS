@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import DarkModeToggle from '../DarkModeToggle';
+import { usePathname } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
 
 const links = [
     {
@@ -35,24 +37,28 @@ const links = [
     },
 ];
 const Navbar = () => {
+    const active = usePathname();
+    const session = useSession();
     return (
         <div className="flex justify-between items-center">
             <Link href={'/'}>
                 <h1 className="text-2xl font-bold">adnan.dev</h1>
             </Link>
-            <div className="flex gap-2 h-[100px] items-center">
+            <div className="flex gap-3 h-[100px] items-center">
                 <DarkModeToggle />
                 {links.map((link) => (
-                    <Link key={link.id} href={link.url}>
+                    <Link key={link.id} href={link.url} className={`hover:text-[#53c28b] ${active === link.url && 'text-[#53c28b]'}`}>
                         {link.title}
                     </Link>
                 ))}
-                <button
-                    onClick={() => console.log('Logged Out')}
-                    className="p-[5px] border-none bg-[#53c28b] text-white cursor-pointer rounded"
-                >
-                    Logout
-                </button>
+                {session.status === "authenticated" && (
+                    <button
+                        onClick={() => signOut()}
+                        className="p-[5px] border-none bg-[#53c28b] text-white cursor-pointer rounded"
+                    >
+                        Logout
+                    </button>
+                )}
             </div>
         </div>
     );

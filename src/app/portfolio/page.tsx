@@ -35,7 +35,7 @@ function Portfolio({}: Props) {
                     <span className="absolute bottom-2 right-2">Websites</span>
                 </Link>
                 <Link
-                    href="/portfolio/application"
+                    href="/portfolio/applications"
                     className="text-4xl font-semibold h-[400px] w-[300px] border-[5px] border-[#bbb] relative bg-cover rounded-[5px] overflow-hidden hover:text-[#53c28b]"
                 >
                     <Image
@@ -44,7 +44,7 @@ function Portfolio({}: Props) {
                         className="w-full h-full object-cover hover:scale-105 transition duration-1000 ease-in-out"
                     />
                     <span className="absolute bottom-2 right-2">
-                        Application
+                        Applications
                     </span>
                 </Link>
             </div>

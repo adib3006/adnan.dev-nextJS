@@ -1,6 +1,6 @@
 'use client';
 import { useContext } from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
+import { ThemeContext } from '../context/ThemeContext';
 
 const DarkModeToggle = () => {
     const { toggle, mode }: { toggle: () => void; mode: 'dark' | 'light' } =
@@ -13,7 +13,7 @@ const DarkModeToggle = () => {
             <div className="text-xs">🌙</div>
             <div className="text-xs">🔆</div>
             <div
-                className="w-[15px] h-[15px] bg-[#53c28b] rounded-full absolute"
+                className="w-[16px] h-[16px] bg-[#53c28b] rounded-full absolute"
                 style={mode === 'light' ? { left: '2px' } : { right: '2px' }}
             />
         </div>

@@ -1,18 +1,42 @@
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
-type Props = {};
-function BlogPost({}: Props) {
+async function getData(id:string):Promise<Post> {
+    const res = await fetch(`http://localhost:3000/api/posts/${id}`,{cache: 'no-store'});
+  
+    if (!res.ok) {
+      return notFound();
+    }
+  
+    return res.json();
+  }
+
+  export async function generateMetadata({ params:{id} }:{params:{id:string}}) {
+    const post:Post | null = await getData(id)
+    return {
+      title: post?.title,
+      description: post?.desc
+    }
+  }
+
+type Props = {
+    params:{
+        id: string
+    }
+};
+export const dynamic = 'force-dynamic'
+async function BlogPost({params: {id}}: Props) {
+    const data:Post = await getData(id);
+    // console.log(data);
     return (
         <div className="">
             <div className="flex gap-5">
                 <div className="flex-1 flex flex-col justify-between">
                     <h1 className="text-[40px]">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        {data.title}
                     </h1>
                     <p className="text-lg font-light text-justify">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Repellat eius consequatur asperiores maiores voluptatem
-                        quas dolore assumenda earum error? Maxime?
+                        {data?.desc}
                     </p>
                     <div className="flex items-center gap-[10px]">
                         <Image
@@ -27,7 +51,7 @@ function BlogPost({}: Props) {
                 </div>
                 <div className="flex-1 h-[300px] relative">
                     <Image
-                        src="https://images.pexels.com/photos/3130810/pexels-photo-3130810.jpeg"
+                        src={data?.img}
                         alt=""
                         fill={true}
                         className="object-cover"
