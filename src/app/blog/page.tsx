@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 async function getData():Promise<Post[]> {
-    const res = await fetch("http://localhost:3000/api/posts",{cache: 'no-store'});
+    const res = await fetch("https://adnan-dev-next-js.vercel.app/api/posts",{cache: 'no-store'});
   
     if (!res.ok) {
       throw new Error("Failed to fetch data");
@@ -52,7 +52,7 @@ export default Blog;
 
 // export async function getStaticProps() {
     
-//     const res = await fetch("http://localhost:3000/api/posts",{cache: 'no-store'});
+//     const res = await fetch("https://adnan-dev-next-js.vercel.app/api/posts",{cache: 'no-store'});
 //     const posts = await res.json()
 //     console.log(res);
   
